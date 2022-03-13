@@ -13,43 +13,94 @@ Window {
     Item {
         id: rootItem
         anchors.fill: parent
+        Rectangle {
+            border.color: "black"
+            width: parent.width
+            height: 150
+            id: inputBox
+            TextInput {
 
-        TextInput {
-            id: input
-            width: parent.width
-            height: 150
+                id: input
+                anchors.centerIn: inputBox
+                onTextChanged: {
+                    response.text = bot.findResponse(input.text)
+                    if (response.text == "I dont know") {
+
+                        output.enabled = true
+                    }
+                }
+                text: "Enter your message here"
+                onFocusChanged: {
+                    if (input.focus == true) {
+                        if (input.text == "Enter your message here") {
+                            input.text = ""
+                        }
+                    }
+                }
+            }
         }
-        TextInput {
-            id: output
+        Rectangle {
+            border.color: "black"
             width: parent.width
             height: 150
-            anchors.top: input.bottom
+            anchors.top: inputBox.bottom
+            id: outputBox
+            TextInput {
+                id: output
+                width: parent.width
+                height: outputBox.height * 0.95
+                anchors.centerIn: outputBox
+                text: "Enter your response here"
+                onTextChanged: {
+                    if (output.text.length > 0) {
+                        addButton.enabled = true
+                    } else {
+                        addButton.enabled = false
+                    }
+                }
+                onFocusChanged: {
+                    if (output.focus == true) {
+                        if (output.text == "Enter your response here") {
+                            output.text = ""
+                        }
+                    }
+                }
+            }
         }
         Text {
             id: response
             text: "none"
             width: parent.width
             height: 150
-            anchors.top: output.bottom
+            anchors.top: outputBox.bottom
         }
-        Button {
-            id: addButton
-            text: "Add"
-            onClicked: {
-                bot.addPathway(input.text, output.text)
-                input.text = ""
-                output.text = ""
-                input.focus = true
-            }
+        Rectangle {
+            border.color: "black"
+            width: parent.width
+            height: 50
+            id: buttonBox
             anchors.top: response.bottom
-        }
-        Button {
-            text: "Guess"
-            onClicked: {
-                response.text = bot.findResponse(input.text)
+
+            Button {
+                id: addButton
+                text: "Add"
+                onClicked: {
+                    bot.addPathway(input.text, output.text)
+                    input.text = ""
+                    output.text = ""
+                    input.focus = true
+                }
+                anchors.centerIn: ButtonBox
             }
-            anchors.top: response.bottom
-            anchors.left: addButton.right
+            Button {
+                id: guessButton
+                text: "Guess"
+                onClicked: {
+                    response.text = bot.findResponse(input.text)
+                }
+                anchors.centerIn: buttonBox
+                anchors.left: addButton.right
+            }
         }
         Component.onCompleted: {
 
