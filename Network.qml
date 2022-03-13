@@ -328,6 +328,19 @@ Item {
                 createPathway("You are not very bright",
                               "You are about as sharp as a  spoon")
 
+                createPathway("how are you doing",
+                              "i was doing great before you started talking")
+
+                createPathway("do you ever talk with female bots?",
+                              "i am a female bot")
+
+                createPathway("have you spoken with a spambot",
+                              "whenever a cool one comes around")
+
+                createPathway("can i hang out with you", "hell no")
+
+                createPathway("who are you?", "i am smackbot")
+
                 for (var a = 0; a < responses.length; a++) {
                     tx.executeSql(
                                 'INSERT INTO Responses VALUES(?, ?)',
