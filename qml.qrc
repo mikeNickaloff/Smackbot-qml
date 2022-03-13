@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Bot.qml</file>
+        <file>Brain.qml</file>
+        <file>Network.qml</file>
+        <file>Node.qml</file>
+        <file>Pathway.qml</file>
+        <file>main.js</file>
+        <file>main.qml</file>
+    </qresource>
+</RCC>
